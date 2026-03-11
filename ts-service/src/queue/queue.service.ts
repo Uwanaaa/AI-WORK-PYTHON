@@ -28,4 +28,15 @@ export class QueueService {
   getQueuedJobs(): readonly EnqueuedJob[] {
     return this.jobs;
   }
+
+  /**
+   * Removes and returns the next job with the given name, or null if none.
+   * Used by workers to process jobs.
+   */
+  takeNext<TPayload = unknown>(name: string): EnqueuedJob<TPayload> | null {
+    const index = this.jobs.findIndex((j) => j.name === name);
+    if (index === -1) return null;
+    const [job] = this.jobs.splice(index, 1);
+    return job as EnqueuedJob<TPayload>;
+  }
 }

@@ -10,6 +10,9 @@
 .env.*
 !.env.example
 
+#Virtual environments
+python-service/.venv/
+
 # Python
 __pycache__/
 *.py[cod]

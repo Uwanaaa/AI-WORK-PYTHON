@@ -8,10 +8,11 @@ This service includes:
 - SQLAlchemy wiring
 - Manual SQL migration runner
 - One small `sample_items` example feature
-- Jinja template wiring with a minimal base template
+- **Briefing report feature**:
+  - `/briefings` CRUD endpoints
+  - Normalized schema (`briefings`, `briefing_points`, `briefing_metrics`)
+  - Jinja template + formatter-based HTML generation
 - Pytest setup
-
-The assessment-specific briefing features are intentionally not implemented.
 
 ## Prerequisites
 
@@ -73,6 +74,51 @@ cd python-service
 source .venv/bin/activate
 python -m uvicorn app.main:app --reload --port 8000
 ```
+
+## Briefing API (Part A)
+
+Once the service is running on `http://127.0.0.1:8000`:
+
+1. **Create a briefing**
+
+   ```http
+   POST /briefings
+   Content-Type: application/json
+
+   {
+     "companyName": "Acme Holdings",
+     "ticker": "ACME",
+     "sector": "Industrial Technology",
+     "analystName": "Jane Doe",
+     "summary": "...",
+     "recommendation": "...",
+     "keyPoints": ["...", "..."],
+     "risks": ["..."],
+     "metrics": [
+       { "name": "Revenue Growth", "value": "18%" }
+     ]
+   }
+   ```
+
+2. **Retrieve a briefing**
+
+   ```http
+   GET /briefings/{id}
+   ```
+
+3. **Generate an HTML report**
+
+   ```http
+   POST /briefings/{id}/generate
+   ```
+
+4. **Fetch rendered HTML**
+
+   ```http
+   GET /briefings/{id}/html
+   ```
+
+For a deeper explanation of the schema and flow, see `NOTES.md`.
 
 ## Run Tests
 

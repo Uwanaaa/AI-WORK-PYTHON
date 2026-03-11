@@ -1,9 +1,12 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { DataSourceOptions } from 'typeorm';
 
+import { CandidateDocument } from '../entities/candidate-document.entity';
+import { CandidateSummary } from '../entities/candidate-summary.entity';
 import { SampleCandidate } from '../entities/sample-candidate.entity';
 import { SampleWorkspace } from '../entities/sample-workspace.entity';
 import { InitialStarterEntities1710000000000 } from '../migrations/1710000000000-InitialStarterEntities';
+import { CandidateDocumentsAndSummaries1720000000000 } from '../migrations/1720000000000-CandidateDocumentsAndSummaries';
 
 export const defaultDatabaseUrl =
   'postgres://assessment_user:assessment_pass@localhost:5432/assessment_db';
@@ -13,8 +16,16 @@ export const getTypeOrmOptions = (
 ): TypeOrmModuleOptions & DataSourceOptions => ({
   type: 'postgres',
   url: databaseUrl,
-  entities: [SampleWorkspace, SampleCandidate],
-  migrations: [InitialStarterEntities1710000000000],
+  entities: [
+    SampleWorkspace,
+    SampleCandidate,
+    CandidateDocument,
+    CandidateSummary,
+  ],
+  migrations: [
+    InitialStarterEntities1710000000000,
+    CandidateDocumentsAndSummaries1720000000000,
+  ],
   migrationsTableName: 'typeorm_migrations',
   synchronize: false,
   logging: false,

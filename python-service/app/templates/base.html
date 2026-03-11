@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ title }}</title>
+    <title>{{ brief.companyName }} Report</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -22,8 +22,33 @@
   </head>
   <body>
     <main>
-      <h1>{{ title }}</h1>
-      <div>{{ body }}</div>
+      <h1>{{ brief.companyName }} ({{ brief.ticker }})</h1>
+      <p><strong>Analyst:</strong> {{ brief.analystName }}</p>
+      <p><strong>Sector:</strong> {{ brief.sector }}</p>
+      <h2>Summary</h2>
+      <div>{{ brief.summary }}</div>
+      <h2>Recommendation</h2>
+      <div>{{ brief.recommendation }}</div>
+      <h2>Key Points</h2>
+      <ul>
+        {% for point in brief.keyPoints %}
+          <li>{{ point }}</li>
+        {% endfor %}
+      </ul>
+      <h2>Risks</h2>
+      <ul>
+        {% for risk in brief.risks %}
+          <li>{{ risk }}</li>
+        {% endfor %}
+      </ul>
+      {% if brief.metrics %}
+      <h2>Metrics</h2>
+      <ul>
+        {% for metric in brief.metrics %}
+          <li><strong>{{ metric.name }}:</strong> {{ metric.value }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
     </main>
     <footer>Generated at: {{ generated_at }}</footer>
   </body>
