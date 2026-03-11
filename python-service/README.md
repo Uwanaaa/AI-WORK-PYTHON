@@ -110,7 +110,7 @@ Once the service is running on `http://127.0.0.1:8000`:
 
    ```http
    POST /briefings/{id}/generate
-   ```
+   `````
 
 4. **Fetch rendered HTML**
 

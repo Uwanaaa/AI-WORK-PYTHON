@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Int
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field, field_validator
 class BriefModel(BaseModel):
     """Validated briefing payload used for create/update and view modeling."""
 
+    id: Optional[int] = Field(default=None, description="The id of the briefing")
     ticker: str = Field(..., description="The ticker symbol of the company (will be uppercased)")
     companyName: str = Field(..., description="The name of the company")
     analystName: str = Field(..., description="The name of the analyst")
